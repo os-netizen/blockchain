@@ -204,7 +204,7 @@
                 <div class="valid-feedback">Looks good!</div>
               </div>
 
-              <!-- <div class="mb-3">
+              <div class="mb-3">
                 <label class="form-label" for="address"
                   >Your ETH-rinkeby address to recieve NFTs on</label
                 >
@@ -214,11 +214,8 @@
                   id="address"
                   name="address"
                   required
-                /> -->
+                />
               <div class="valid-feedback">Looks good!</div>
-              <!-- <div class="d-flex justify-content-center mb-3 mt-3">Upload the image of NFT you want
-                    <input type="file" name="fileInput" id="fileInput"> <br>
-                  </div> -->
               <div class="mb-3 mt-3">
                 <label for="formFile" class="form-label"
                   >Upload the image of NFT you want</label
@@ -232,17 +229,8 @@
               </div>
               <div class="d-flex justify-content-center mb-3 mt-3">
                 <button
-                  id="publish"
                   class="w3-button w3-black w3-padding-large"
                   onclick="gogogo()"
-                >
-                  PUBLISH TO IPFS
-                </button>
-                <button
-                  id="mint"
-                  class="w3-button w3-black w3-padding-large"
-                  onclick=""
-                  style="display: none"
                 >
                   MINT
                 </button>
@@ -299,8 +287,6 @@
       gogogo = async () => {
         const image = await uploadImage();
         ipfsMetaData = await uploadMetaData(image);
-        document.getElementById("publish").style.display = "none";
-        document.getElementById("mint").style.display = "block";
         return ipfsMetaData;
       };
     </script>

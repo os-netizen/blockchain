@@ -15,6 +15,10 @@ app.get("/", (req, res) => {
   res.render("./stylesheets/home");
 });
 
+app.get("/transfer", (req, res) => {
+  res.render("./stylesheets/transfer");
+});
+
 app.get("/pricing", (req, res) => {
   res.render("./stylesheets/pricing");
 });
@@ -25,14 +29,15 @@ app.get("/proof", (req, res) => {
 
   const { contractAddress, tokenID } = req.query;
   // console.log(contractAddress, tokenID);
-  res.render("./stylesheets/proofTry", {
-    contractAddress: contractAddress,
-    tokenID: tokenID,
-  });
+  res.render("./stylesheets/proofTry");
 });
 
 app.get("/newProducts", (req, res) => {
   res.render("./stylesheets/newProducts");
+});
+
+app.get("/mintToCustm", (req, res) => {
+  res.render("./stylesheets/mintToCustm");
 });
 
 app.post("/newProducts", (req, res) => {

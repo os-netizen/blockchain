@@ -33,6 +33,11 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+    <script
+      src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+      type="application/javascript"
+    ></script>
+    <script src="./javascripts/publish.js"></script>
     <style>
       body,
       html {
@@ -241,7 +246,7 @@
                 <button
                   id="mint"
                   class="w3-button w3-black w3-padding-large"
-                  onclick=""
+                  onclick="mintNow()"
                   style="display: none"
                 >
                   MINT
@@ -254,56 +259,14 @@
     </div>
     <!-- </div> -->
 
-    <script>
-      const serverUrl = "https://jrhct3nepajw.usemoralis.com:2053/server";
-      const appId = "GzSUUx4WrVeCG5BEomiP0KdHc1aGhQmVDw5iElq7";
-      Moralis.start({ serverUrl, appId });
+    <!-- <script></script> -->
 
-      //login function
-      login = async () => {
-        Moralis.authenticate().then(function (user) {
-          console.log(user.get("ethAddress"));
-        });
-      };
-
-      //upload an image
-      uploadImage = async () => {
-        const data = formFile.files[0];
-        const file = new Moralis.File(data.name, data);
-        await file.saveIPFS();
-
-        console.log(file.ipfs(), file.hash());
-
-        return file.ipfs();
-      };
-
-      //upload the metadata object
-
-      uploadMetaData = async (imageURL) => {
-        const object = {
-          companyName: document.getElementById("companyName").value,
-          "NFT series name": document.getElementById("NFTprojectName").value,
-          noOfNft: document.getElementById("noOfNFT").value,
-          image: imageURL,
-        };
-        const file = new Moralis.File("file.json", {
-          base64: btoa(JSON.stringify(object)),
-        });
-        await file.saveIPFS();
-        console.log(file.ipfs(), file.hash());
-        return file.ipfs();
-      };
-
-      //function to goooo
-      let ipfsMetaData;
-      gogogo = async () => {
-        const image = await uploadImage();
-        ipfsMetaData = await uploadMetaData(image);
-        document.getElementById("publish").style.display = "none";
-        document.getElementById("mint").style.display = "block";
-        return ipfsMetaData;
-      };
-    </script>
+    <!-- <script type="module">
+      import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
+    </script> -->
+    <!-- <script type="text/javascript">
+      console.log(abi);
+    </script> -->
 
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
