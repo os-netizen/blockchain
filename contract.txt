@@ -38,23 +38,7 @@ function transfer (address _to, uint tokenID) public {
 
  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Contract ABI
 const abi = [
 	{
 		"inputs": [
@@ -465,25 +449,7 @@ const abi = [
 ]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Contract Bytecode
 const bytecode = {
 	"functionDebugData": {
 		"@_155": {

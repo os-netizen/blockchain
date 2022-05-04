@@ -32,6 +32,10 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+    <script
+      src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+      type="application/javascript"
+    ></script>
     <style>
       body,
       html {
@@ -123,10 +127,10 @@
       }
     </style>
   </head>
-  <body class="bg-img">
+  <body class="bg-img" onload="">
     <div class="w3-top w3-margin-bottom">
       <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="/" class="w3-bar-item w3-button w3-wide">LOGO</a>
+        <a href="/" class="w3-bar-item w3-button w3-wide">EROS-ANTEROS</a>
         <!-- Right-sided navbar links -->
         <div class="w3-right w3-hide-small">
           <!-- <a href="#about" class="w3-bar-item w3-button">ABOUT</a> -->
@@ -157,32 +161,480 @@
       class="center container d-flex justify-content-center align-items-center mt-5 mb-5"
     > -->
     <div
+      id="data"
       class="center row mt-5 d-flex justify-content-center align-items-center"
       style="padding-top: 60px"
     >
       <div class="card col-md-5 w-75" style="width: 18rem">
-        <img
-          src="https://images.unsplash.com/photo-1651557789272-3477007f54b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-          class="card-img-top"
-          alt="..."
-        />
+        <img src="<%= image %>" class="card-img-top" alt="..." />
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+          <h5 class="card-title w3-center mb-3 mt-3">
+            Collection : <%= NFTname %>
+          </h5>
+          <p class="card-text w3-center mt-3">
+            Company Name : <%= companyName %>
           </p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">An item</li>
-          <li class="list-group-item">A second item</li>
-          <li class="list-group-item">A third item</li>
+          <li class="list-group-item w3-center">
+            Number of similar NFTs : <%= noOfNFT %>
+          </li>
+          <li class="list-group-item w3-center">
+            Owner address : <%= address %>
+          </li>
         </ul>
         <button class="w3-button w3-black w3-padding-large mt-5 mb-3">
           GO SUPER SAIYAN
         </button>
       </div>
     </div>
+
+    <script>
+      // async function script() {
+      //   console.log(window.hash.hashu);
+      //   const urlParams = new URLSearchParams(location.search);
+      //   let contractAddress, tokenID;
+      //   for (const [key, value] of urlParams) {
+      //     if (key == "contractAddress") {
+      //       contractAddress = value;
+      //     }
+      //     if (key == "tokenID") {
+      //       tokenID = value;
+      //     }
+      //   }
+      //   console.log(contractAddress, tokenID);
+      //   const abi = [
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "string",
+      //           name: "name",
+      //           type: "string",
+      //         },
+      //         {
+      //           internalType: "string",
+      //           name: "symbol",
+      //           type: "string",
+      //         },
+      //         {
+      //           internalType: "string",
+      //           name: "uree",
+      //           type: "string",
+      //         },
+      //       ],
+      //       stateMutability: "nonpayable",
+      //       type: "constructor",
+      //     },
+      //     {
+      //       anonymous: false,
+      //       inputs: [
+      //         {
+      //           indexed: true,
+      //           internalType: "address",
+      //           name: "owner",
+      //           type: "address",
+      //         },
+      //         {
+      //           indexed: true,
+      //           internalType: "address",
+      //           name: "approved",
+      //           type: "address",
+      //         },
+      //         {
+      //           indexed: true,
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "Approval",
+      //       type: "event",
+      //     },
+      //     {
+      //       anonymous: false,
+      //       inputs: [
+      //         {
+      //           indexed: true,
+      //           internalType: "address",
+      //           name: "owner",
+      //           type: "address",
+      //         },
+      //         {
+      //           indexed: true,
+      //           internalType: "address",
+      //           name: "operator",
+      //           type: "address",
+      //         },
+      //         {
+      //           indexed: false,
+      //           internalType: "bool",
+      //           name: "approved",
+      //           type: "bool",
+      //         },
+      //       ],
+      //       name: "ApprovalForAll",
+      //       type: "event",
+      //     },
+      //     {
+      //       anonymous: false,
+      //       inputs: [
+      //         {
+      //           indexed: true,
+      //           internalType: "address",
+      //           name: "from",
+      //           type: "address",
+      //         },
+      //         {
+      //           indexed: true,
+      //           internalType: "address",
+      //           name: "to",
+      //           type: "address",
+      //         },
+      //         {
+      //           indexed: true,
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "Transfer",
+      //       type: "event",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "to",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "approve",
+      //       outputs: [],
+      //       stateMutability: "nonpayable",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "owner",
+      //           type: "address",
+      //         },
+      //       ],
+      //       name: "balanceOf",
+      //       outputs: [
+      //         {
+      //           internalType: "uint256",
+      //           name: "",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "getApproved",
+      //       outputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "",
+      //           type: "address",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "owner",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "address",
+      //           name: "operator",
+      //           type: "address",
+      //         },
+      //       ],
+      //       name: "isApprovedForAll",
+      //       outputs: [
+      //         {
+      //           internalType: "bool",
+      //           name: "",
+      //           type: "bool",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "_to",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "uint256",
+      //           name: "amount",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "mint",
+      //       outputs: [
+      //         {
+      //           internalType: "uint256",
+      //           name: "",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       stateMutability: "nonpayable",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [],
+      //       name: "name",
+      //       outputs: [
+      //         {
+      //           internalType: "string",
+      //           name: "",
+      //           type: "string",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "ownerOf",
+      //       outputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "",
+      //           type: "address",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "from",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "address",
+      //           name: "to",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "safeTransferFrom",
+      //       outputs: [],
+      //       stateMutability: "nonpayable",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "from",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "address",
+      //           name: "to",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //         {
+      //           internalType: "bytes",
+      //           name: "_data",
+      //           type: "bytes",
+      //         },
+      //       ],
+      //       name: "safeTransferFrom",
+      //       outputs: [],
+      //       stateMutability: "nonpayable",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "operator",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "bool",
+      //           name: "approved",
+      //           type: "bool",
+      //         },
+      //       ],
+      //       name: "setApprovalForAll",
+      //       outputs: [],
+      //       stateMutability: "nonpayable",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "bytes4",
+      //           name: "interfaceId",
+      //           type: "bytes4",
+      //         },
+      //       ],
+      //       name: "supportsInterface",
+      //       outputs: [
+      //         {
+      //           internalType: "bool",
+      //           name: "",
+      //           type: "bool",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [],
+      //       name: "symbol",
+      //       outputs: [
+      //         {
+      //           internalType: "string",
+      //           name: "",
+      //           type: "string",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "tokenURI",
+      //       outputs: [
+      //         {
+      //           internalType: "string",
+      //           name: "",
+      //           type: "string",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "_to",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "uint256",
+      //           name: "tokenID",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "transfer",
+      //       outputs: [],
+      //       stateMutability: "nonpayable",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [
+      //         {
+      //           internalType: "address",
+      //           name: "from",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "address",
+      //           name: "to",
+      //           type: "address",
+      //         },
+      //         {
+      //           internalType: "uint256",
+      //           name: "tokenId",
+      //           type: "uint256",
+      //         },
+      //       ],
+      //       name: "transferFrom",
+      //       outputs: [],
+      //       stateMutability: "nonpayable",
+      //       type: "function",
+      //     },
+      //     {
+      //       inputs: [],
+      //       name: "uri",
+      //       outputs: [
+      //         {
+      //           internalType: "string",
+      //           name: "",
+      //           type: "string",
+      //         },
+      //       ],
+      //       stateMutability: "view",
+      //       type: "function",
+      //     },
+      //   ];
+      //   const provider = new ethers.providers.Web3Provider(
+      //     window.ethereum,
+      //     "rinkeby"
+      //   );
+      //   const contract = new ethers.Contract(contractAddress, abi, provider);
+      //   contract.connect(provider);
+      //   console.log(contract);
+      //   const tx = await contract.uri();
+      //   console.log(tx);
+      //   // const hash = global.ipfsHash;
+      //   let url = `https://gateway.moralisipfs.com/ipfs/`;
+      //   const data = await fetch(url);
+      //   console.log(data);
+      //   const uri = await data.json();
+      //   console.log(uri);
+      //   // const uri = await tx.json();
+      //   // await tx.wait();
+      //   // console.log(tx);
+      //   const tx2 = await contract.ownerOf(tokenID);
+      //   // await tx2.wait();
+      //   console.log(tx2);
+      //   // console.log(uri.companyName);
+      // }
+    </script>
 
     <script>
       // Modal Image Gallery
