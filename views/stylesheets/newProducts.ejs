@@ -107,12 +107,7 @@
           <!-- <!-- <a href="#team" class="w3-bar-item w3-button"
             ><i class="fa fa-user"></i> TEAM</a
           > -->
-          <!-- <a href="#work" class="w3-bar-item w3-button"
-            ><i class="fa fa-th"></i> WORK</a
-          >
-          <a href="#pricing" class="w3-bar-item w3-button"
-            ><i class="fa fa-usd"></i> PRICING</a
-          > -->
+          <a href="/transfer" class="w3-bar-item w3-button">TRANSFER NFTs</a>
           <!-- <a href="/newProducts" class="w3-bar-item w3-button">GENRATE QRs</a> -->
         </div>
         <!-- Hide right-floated links on small screens and replace them with a menu icon -->
@@ -209,7 +204,7 @@
                 <div class="valid-feedback">Looks good!</div>
               </div>
 
-              <!-- <div class="mb-3">
+              <div class="mb-3">
                 <label class="form-label" for="address"
                   >Your ETH-rinkeby address to recieve NFTs on</label
                 >
@@ -219,11 +214,9 @@
                   id="address"
                   name="address"
                   required
-                /> -->
+                />
+              </div>
               <div class="valid-feedback">Looks good!</div>
-              <!-- <div class="d-flex justify-content-center mb-3 mt-3">Upload the image of NFT you want
-                    <input type="file" name="fileInput" id="fileInput"> <br>
-                  </div> -->
               <div class="mb-3 mt-3">
                 <label for="formFile" class="form-label"
                   >Upload the image of NFT you want</label
@@ -3155,6 +3148,9 @@
       Moralis.start({ serverUrl, appId });
 
       document.getElementById("marimba").addEventListener("click", login, true);
+      document
+        .getElementById("publish")
+        .addEventListener("click", gogogo, true);
       //login function
       async function login() {
         Moralis.authenticate().then(function (user) {
@@ -3179,7 +3175,7 @@
       const uploadMetaData = async (imageURL) => {
         const object = {
           companyName: document.getElementById("companyName").value,
-          "NFT series name": document.getElementById("NFTprojectName").value,
+          NFT_series_name: document.getElementById("NFTprojectName").value,
           noOfNft: document.getElementById("noOfNFT").value,
           image: imageURL,
         };
@@ -3187,67 +3183,65 @@
           base64: btoa(JSON.stringify(object)),
         });
         await file.saveIPFS();
-        console.log(file.ipfs(), file.hash());
+        console.log("FILE IPFs", file.ipfs(), "AND FILE HASH", file.hash());
+        // var hashu = file.hash();
+        // windows.hash = {
+        //   value: hashu,
+        // };
+        // global.ipfsHash = file.hash();
         return file.ipfs();
       };
-      const name = document.getElementById("NFTprojectName").value;
-      const symbol = document.getElementById("NFTtokenName").value;
-      const noOfNft = document.getElementById("noOfNFT").value;
-      const recieverAddress = "0x8cA2D9f8818B3F8DbC10A5BEF5557f73069516B7";
 
       //function to goooo
       // let ipfsMetaData ;
-      const gogogo = async () => {
+      async function gogogo() {
         const image = await uploadImage();
-        const ipfsMetaData = await uploadMetaData(image);
+        const ipfs = await uploadMetaData(image);
         // document.getElementById("publish").style.display = "none";
         // document.getElementById("mint").style.display = "block";
 
-        // const provider = new ethers.providers.Web3Provider(
-        //   window.ethereum,
-        //   "rinkeby"
-        // );
+        const name = document.getElementById("NFTprojectName").value;
+        const symbol = document.getElementById("NFTtokenName").value;
+        const noOfNft = document.getElementById("noOfNFT").value;
+        const recieverAddress = document.getElementById("address").value;
+        const provider = new ethers.providers.Web3Provider(
+          window.ethereum,
+          "rinkeby"
+        );
 
-        // // await provider.send("eth_requestAccounts", []).then();
-        // const accounts = await provider.listAccounts();
+        // await provider.send("eth_requestAccounts", []).then();
+        const accounts = await provider.listAccounts();
         // console.log(accounts);
 
-        // const signer = provider.getSigner(accounts[0]);
+        const signer = provider.getSigner(accounts[0]);
         // console.log(signer);
 
-        // const factory = new ethers.ContractFactory(abi, bytecode, signer);
+        const factory = new ethers.ContractFactory(abi, bytecode, signer);
 
-        // contract = await factory.deploy(name, symbol, ipfsMetaData);
+        const contract = await factory.deploy(name, symbol, ipfs);
         // console.log(contract);
-        // const address = contract.address;
-        // const receipt = await contract.deployTransaction.wait();
+        const address = contract.address;
+        console.log("Contract Address", address);
+        const receipt = await contract.deployTransaction.wait();
         // console.log(receipt);
 
-        // const NFTea = new ethers.Contract(address, abi, signer);
-        // console.log(object);
-        // const transaction = await contract.mint(recieverAddress, noOfNft);
-        // console.log(transaction);
-      };
+        const NFTea = new ethers.Contract(address, abi, signer);
+        // NFTea.connect(signer);
+        // console.log(NFTea);
+        const tx = await NFTea.mint(recieverAddress, noOfNft);
+        await tx.wait();
+        console.log(tx);
+        const tx2 = await NFTea.uri();
 
-      // const mintNow = () => {
+        console.log(tx2);
+        //comment out later
+        // const tx3 = await contract.ownerOf(1);
+        // // await tx3.wait();
+        // console.log(tx3);
+        console.log("MINTING DONE!! CONGRATULATIONS");
+        alert("NFT Minted!!!");
+      }
 
-      // provider = new ethers.providers.Web3Provider(
-      //     window.ethereum,
-      //     "rinkeby"
-      //   );
-
-      //   await provider.send("eth_requestAccounts", []);
-      //   const signer = provider.getSigner();
-
-      //   const factory = new ContractFactory(abi, bytecode, signer);
-
-      //   contract = await factory.deploy(name, symbol, ipfsMetaData);
-      //   const address = contract.address;
-      //   const receipt = await contract.deployTransaction.wait();
-      //   console.log(receipt);
-
-      //   const NFTea = new ethers.Contract(address, abi, signer);
-      //   const transaction = await contract.mint(recieverAddress, noOfNft);
       // };
     </script>
     <script>
