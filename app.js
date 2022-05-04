@@ -69,6 +69,6 @@ app.post("/newProducts", (req, res) => {
   // res.render("./stylesheets/mintNew");
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Example app listening on port ${port}`);
 });
