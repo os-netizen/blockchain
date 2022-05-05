@@ -49,7 +49,7 @@ app.get("/proof", async (req, res) => {
       // console.log(JSON.stringify(response.data, null, 2));
       resp = response.data.metadata;
       add = response.data.contract.address;
-      // console.log(resp["NFT series name"]);
+      console.log(resp["NFT series name"]);
     })
     .catch((error) => console.log(error));
   res.render("./stylesheets/proofTry", {
@@ -57,7 +57,7 @@ app.get("/proof", async (req, res) => {
     noOfNFT: resp.noOfNFT,
     companyName: resp.companyName,
     address: add,
-    NFTname: resp["NFT series name"],
+    NFTname: resp.NFT_series_name,
   });
 });
 
@@ -68,6 +68,16 @@ app.get("/newProducts", (req, res) => {
 app.post("/newProducts", (req, res) => {
   // res.render("./stylesheets/mintNew");
 });
+
+app.get("/qr", (req, res) => {
+  const { contractAddress, tokenID } = req.query;
+  console.log(tokenID);
+  let uri = `http://localhost:3000/proof?contractAddress=${contractAddress}&tokenID=${tokenID}`;
+  let encoded = encodeURIComponent(uri);
+  res.render("./stylesheets/qr", { encoded });
+});
+
+app.post("/transfer", (req, res) => {});
 
 app.listen(process.env.PORT || port, () => {
   console.log(`Example app listening on port ${port}`);

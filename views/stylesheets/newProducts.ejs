@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Try</title>
+    <title>Mint New NFT</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <!-- <script src="../javascripts/minterButton.js"></script> -->
     <link
@@ -129,14 +129,19 @@
       class="center row mt-5 d-flex align-items-center"
       style="padding-top: 60px"
     >
-      <div class="col-md-4 offset-md-6 col-xl-10 offset-xl-1">
+      <div
+        id="mainDiv"
+        class="col-md-4 offset-md-6 col-xl-10 offset-xl-1"
+        style="display: flex"
+      >
         <div class="card shadow">
           <img
+            id="image"
             src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGV0aGVyZXVtfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
             alt=""
             class="card-img-top"
           />
-          <div class="card-body">
+          <div id="card" class="card-body">
             <h5 class="card-title mb-3 text-center">NFT Mint Form</h5>
             <div class="d-flex justify-content-center mb-3 mt-3">
               <button
@@ -3234,12 +3239,13 @@
         const tx2 = await NFTea.uri();
 
         console.log(tx2);
-        //comment out later
-        // const tx3 = await contract.ownerOf(1);
-        // // await tx3.wait();
-        // console.log(tx3);
         console.log("MINTING DONE!! CONGRATULATIONS");
-        alert("NFT Minted!!!");
+        const url = `http://localhost:3000/qr?contractAddress=${address}&tokenID=${1}`;
+        window.location.assign(url);
+        // document.getElementById("card").style.display = none;
+        // const url = `https://api.qrserver.com/v1/create-qr-code/?data=localhost:3000/proof?contractAddress=${address}&tokenID=1&size=150x150`;
+        // document.getElementById("image").src = url;
+        // alert("NFT Minted!!!");
       }
 
       // };
