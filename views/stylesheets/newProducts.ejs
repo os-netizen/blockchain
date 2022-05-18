@@ -3219,7 +3219,7 @@
         // console.log(accounts);
 
         const signer = provider.getSigner(accounts[0]);
-        // console.log(signer);
+        console.log(signer._address);
 
         const factory = new ethers.ContractFactory(abi, bytecode, signer);
 
@@ -3240,7 +3240,7 @@
 
         console.log(tx2);
         console.log("MINTING DONE!! CONGRATULATIONS");
-        const url = `http://localhost:3000/qr?contractAddress=${address}&tokenID=${1}`;
+        const url = `http://localhost:3000/qr?contractAddress=${address}&tokenID=${1}&recieverAddress=${recieverAddress}`;
         window.location.assign(url);
         // document.getElementById("card").style.display = none;
         // const url = `https://api.qrserver.com/v1/create-qr-code/?data=localhost:3000/proof?contractAddress=${address}&tokenID=1&size=150x150`;

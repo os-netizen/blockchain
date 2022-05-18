@@ -30,7 +30,7 @@ app.get("/proof", async (req, res) => {
   // res.send(req.params);
   // res.render("proof");
 
-  const { contractAddress, tokenID } = req.query;
+  const { contractAddress, tokenID, recieverAddress } = req.query;
   const options = { method: "GET" };
 
   const apiKey = "sCQ3HEkQrXzkClii7H_aw4hHGqEBcheP";
@@ -48,17 +48,19 @@ app.get("/proof", async (req, res) => {
     .then((response) => {
       // console.log(JSON.stringify(response.data, null, 2));
       resp = response.data.metadata;
-      add = response.data.contract.address;
-      console.log(resp["NFT series name"]);
+      // add = response.data.contract.address;
+      console.log(response.data);
+    })
+    .then(() => {
+      res.render("./stylesheets/proofTry", {
+        image: resp.image,
+        noOfNFT: resp.noOfNFT,
+        companyName: resp.companyName,
+        address: recieverAddress,
+        NFTname: resp.NFT_series_name,
+      });
     })
     .catch((error) => console.log(error));
-  res.render("./stylesheets/proofTry", {
-    image: resp.image,
-    noOfNFT: resp.noOfNFT,
-    companyName: resp.companyName,
-    address: add,
-    NFTname: resp.NFT_series_name,
-  });
 });
 
 app.get("/newProducts", (req, res) => {
@@ -70,9 +72,9 @@ app.post("/newProducts", (req, res) => {
 });
 
 app.get("/qr", (req, res) => {
-  const { contractAddress, tokenID } = req.query;
+  const { contractAddress, tokenID, recieverAddress } = req.query;
   console.log(tokenID);
-  let uri = `http://localhost:3000/proof?contractAddress=${contractAddress}&tokenID=${tokenID}`;
+  let uri = `http://localhost:3000/proof?contractAddress=${contractAddress}&tokenID=${tokenID}&recieverAddress=${recieverAddress}`;
   let encoded = encodeURIComponent(uri);
   res.render("./stylesheets/qr", { encoded });
 });
